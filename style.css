@@ -1,0 +1,29 @@
+/* css reset */
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+button,
+a {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* default style */
+:root {
+  --font-family: Arial, Helvetica, sans-serif;
+  --font-size: 16px;
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+}

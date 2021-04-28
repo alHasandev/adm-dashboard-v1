@@ -1,0 +1,222 @@
+.sidebar {
+  /* css variable */
+  --background-color: #5f27ce;
+  --background-active: #32268c;
+  --box-shadow: 1px 1px 6px 0px rgba(0, 0, 0, 0.3);
+  --font-color: #d6d1ff;
+  --font-active: #fafafa;
+  --text-size: 0.9rem;
+  --sidebar-width: 15rem;
+  --padding-bottom: 1rem;
+
+  max-width: var(--sidebar-width);
+  background-color: var(--background-color);
+  box-shadow: var(--box-shadow);
+  padding-bottom: var(--padding-bottom);
+
+  position: relative;
+  transition: 300ms;
+  height: 100vh;
+  overflow-x: hidden;
+}
+
+.sidebar.active {
+  --sidebar-width: 4.5rem;
+}
+
+.sidebar .logo {
+  display: flex;
+  align-items: center;
+  padding: 1rem 1rem;
+  font-size: calc(var(--text-size) * 1.5);
+}
+
+.sidebar .logo-mark {
+  min-width: 2.5rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-right: 1rem;
+  overflow: hidden;
+  border-radius: 100%;
+}
+
+.sidebar .logo-mark img {
+  width: 100%;
+}
+
+.sidebar .logo-text {
+  color: var(--font-active);
+  letter-spacing: 0.3rem;
+  font-weight: 600;
+}
+
+.sidebar nav {
+  display: flex;
+  height: calc(100vh - 7.75rem - var(--padding-bottom));
+  flex-direction: column;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.sidebar .nav-link {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  color: var(--font-color);
+}
+
+.sidebar .nav-icon {
+  padding-right: 1.5rem;
+}
+
+.sidebar .nav-icon svg {
+  color: var(--font-color);
+  width: 1.5rem;
+}
+
+.sidebar .nav-text {
+  white-space: nowrap;
+  letter-spacing: 0.1rem;
+  font-size: var(--text-size);
+}
+
+.sidebar :is(.nav-link:hover, .nav-link.active) {
+  background-color: var(--background-active);
+}
+
+.sidebar :is(.nav-link:hover, .nav-link.active) :is(svg, .nav-text) {
+  color: var(--font-active);
+}
+
+/* utilities */
+.sidebar .divider-bottom {
+  align-self: end;
+}
+
+/* sidebar menu */
+.sidebar-menu {
+  border: none;
+  background-color: transparent;
+  position: absolute;
+  right: 1rem;
+  top: 0;
+  z-index: 100;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: 600ms;
+}
+
+.sidebar-menu svg {
+  width: 2rem;
+}
+
+.sidebar-menu svg path {
+  transition: 300ms;
+}
+
+.sidebar-menu:hover svg {
+  color: #5f27ce;
+}
+
+.sidebar-menu.active svg path {
+  d: path("M4 6h16M4 12h8m-8 6h16");
+}
+
+/* media query */
+@media (max-width: 1024px) {
+  .sidebar {
+    --sidebar-width: 4.5rem;
+  }
+
+  .sidebar.active {
+    --sidebar-width: 15rem;
+  }
+
+  .sidebar-menu svg path {
+    d: path("M4 6h16M4 12h8m-8 6h16");
+  }
+
+  .sidebar-menu.active svg path {
+    d: path("M4 6h16M4 12h16M4 18h16");
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    position: absolute;
+    left: calc(var(--sidebar-width) * -1);
+  }
+  .sidebar::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100vh;
+    transition: 1000ms;
+    pointer-events: none;
+    background-color: rgba(0, 0, 0, 0);
+  }
+  .sidebar.active {
+    left: 0;
+    --sidebar-width: calc(100vw - 7.5rem);
+    min-width: var(--sidebar-width);
+  }
+  .sidebar.active::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: var(--sidebar-width);
+    right: 0;
+    height: 100vh;
+    pointer-events: unset;
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+
+  .sidebar-menu.active {
+    position: fixed;
+    top: 50%;
+    transform: translate(-0.5rem, -50%);
+  }
+
+  .sidebar-menu.active svg {
+    width: 3rem;
+    background-color: rgb(95, 39, 206);
+    padding: 0.5rem;
+    border-radius: 100%;
+    color: #d6d1ff;
+    box-shadow: 1px 1px 10px 1px rgba(95, 39, 206, 0.5);
+    z-index: 100;
+  }
+
+  .sidebar-menu.active svg path {
+    stroke-width: 0.25rem;
+    d: path("M6 18L18 6M6 6l12 12");
+  }
+}
+
+/* custom scrollbar */
+/* width */
+.sidebar ::-webkit-scrollbar {
+  width: 0.5rem;
+  position: absolute;
+  right: -5rem;
+  transform: translateX(100px);
+}
+
+/* Track */
+.sidebar ::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px var(--background-active);
+  border-radius: 10px;
+  position: absolute;
+  right: -5rem;
+}
+
+/* Handle */
+.sidebar ::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 1rem;
+}
